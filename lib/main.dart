@@ -20,24 +20,41 @@ main() async {
   _imageMap = new ImageMap(_bundle);
   print('_bundle: $_bundle _imageMap: $_imageMap');
   await _imageMap.load(<String>[
-    'assets/artboard.png'
+    'assets/artboard.png',
+    'assets/grasstile.png'
   ]);
   print('ADDED IMAGES');
-  runApp(new GameBoard());
+  runApp(new GameBoardWidget());
 }
 
-class GameBoard extends StatefulWidget {
-  GameBoardState createState() => new GameBoardState();
+class GameBoardWidget extends StatefulWidget {
+  GameBoardWidgetState createState() => new GameBoardWidgetState();
 }
 
-class GameBoardState extends State<GameBoard> {
+class GameBoardWidgetState extends State<GameBoardWidget> {
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: Title(
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    Title title = new Title(
         title: "Helt",
-        color: const Color(0xFFFFFFFF),
-        child: new SpriteWidget(new BoardRootNode(), SpriteBoxTransformMode.fixedWidth),
-      )
+        color: const Color(0xFF024962),
+          child: Container(
+            child: SafeArea(
+              child: Center(
+                child: AspectRatio(
+                  aspectRatio: 750.0/1056.0,
+                  child: Container(
+                   // color: const Color(0xFFFFFFFF),
+                    child: new SpriteWidget(new BoardRootNode(), SpriteBoxTransformMode.fixedWidth)
+                  )
+                )
+              )
+            ),
+            color: Color(0xFF024962)
+          )
+      );
+    return new MaterialApp(
+      color: const Color(0xFF024962),
+      home: title
     );
   }
 }
@@ -52,9 +69,13 @@ class LoadingScreen extends StatelessWidget{
 }
 
 class BoardRootNode extends NodeWithSize {
-  BoardRootNode(): super(new Size(750.0, 1337.0)) {
-    var imageNode = new Sprite.fromImage(_imageMap["assets/artboard.png"]);
-    imageNode.position = Offset(750.0 / 2, 1337.0 / 2);
-    addChild(imageNode);
+  BoardRootNode(): super(new Size(750.0, 1056.0)) {
+    for (var y = 0; y < 15; y++) {
+      for (var x = 0; x < 7; x++) {
+        var imageNode = new Sprite.fromImage(_imageMap["assets/grasstile.png"]);
+        imageNode.position = Offset(143 + x * 90.0, y * 65.0 + 100);
+        addChild(imageNode);
+      }
+    }
   }
 }
