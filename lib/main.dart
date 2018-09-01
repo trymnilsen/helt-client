@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:helt/grasslands.dart';
 import 'package:spritewidget/spritewidget.dart';
 
 ImageMap _imageMap;
@@ -21,7 +22,8 @@ main() async {
   print('_bundle: $_bundle _imageMap: $_imageMap');
   await _imageMap.load(<String>[
     'assets/artboard.png',
-    'assets/grasstile.png'
+    'assets/grasstile.png',
+    'assets/bridge.png'
   ]);
   print('ADDED IMAGES');
   runApp(new GameBoardWidget());
@@ -70,12 +72,6 @@ class LoadingScreen extends StatelessWidget{
 
 class BoardRootNode extends NodeWithSize {
   BoardRootNode(): super(new Size(750.0, 1056.0)) {
-    for (var y = 0; y < 15; y++) {
-      for (var x = 0; x < 7; x++) {
-        var imageNode = new Sprite.fromImage(_imageMap["assets/grasstile.png"]);
-        imageNode.position = Offset(143 + x * 90.0, y * 65.0 + 100);
-        addChild(imageNode);
-      }
-    }
+    new GrassLands(_imageMap, this);
   }
 }
