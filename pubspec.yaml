@@ -25,6 +25,20 @@ flutter:
     - assets/artboard.png
     - assets/grasstile.png
     - assets/bridge.png
+    - assets/dummycard.png
+    - assets/enemycastle.png
+    - assets/enemymarket.png
+    - assets/enemytower.png
+    - assets/energygem.png
+    - assets/fence.png
+    - assets/fencegate.png
+    - assets/knight.png
+    - assets/playercastle.png
+    - assets/playermarket.png
+    - assets/playertower.png
+    - assets/usedenergygem.png
+    - assets/playerselection.png
+    - assets/tile175.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

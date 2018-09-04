@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:helt/game.dart';
 import 'package:helt/grasslands.dart';
 import 'package:spritewidget/spritewidget.dart';
 
@@ -23,7 +24,21 @@ main() async {
   await _imageMap.load(<String>[
     'assets/artboard.png',
     'assets/grasstile.png',
-    'assets/bridge.png'
+    'assets/bridge.png',
+    'assets/dummycard.png',
+    'assets/enemycastle.png',
+    'assets/enemymarket.png',
+    'assets/enemytower.png',
+    'assets/energygem.png',
+    'assets/fence.png',
+    'assets/fencegate.png',
+    'assets/knight.png',
+    'assets/playercastle.png',
+    'assets/playermarket.png',
+    'assets/playertower.png',
+    'assets/usedenergygem.png',
+    'assets/playerselection.png',
+    'assets/tile175.png'
   ]);
   print('ADDED IMAGES');
   runApp(new GameBoardWidget());
@@ -34,8 +49,16 @@ class GameBoardWidget extends StatefulWidget {
 }
 
 class GameBoardWidgetState extends State<GameBoardWidget> {
+  BoardRootNode rootNode;
+  Game game;
+  GameBoardWidgetState() {
+    Game game = new Game(_imageMap);
+    rootNode = new BoardRootNode(game);
+    game.createCharacters(rootNode);
+  }
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     Title title = new Title(
         title: "Helt",
         color: const Color(0xFF024962),
@@ -46,7 +69,7 @@ class GameBoardWidgetState extends State<GameBoardWidget> {
                   aspectRatio: 750.0/1056.0,
                   child: Container(
                    // color: const Color(0xFFFFFFFF),
-                    child: new SpriteWidget(new BoardRootNode(), SpriteBoxTransformMode.fixedWidth)
+                    child: new SpriteWidget(rootNode, SpriteBoxTransformMode.fixedWidth)
                   )
                 )
               )
@@ -64,14 +87,14 @@ class LoadingScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: Container(
-        color: const Color(0xFFFFFFFF),
+        color: const Color(0xFF742582),
       )
     );
   }
 }
 
 class BoardRootNode extends NodeWithSize {
-  BoardRootNode(): super(new Size(750.0, 1056.0)) {
-    new GrassLands(_imageMap, this);
+  BoardRootNode(Game game): super(new Size(750.0, 1056.0)) {
+    new GrassLands(_imageMap, this, game);
   }
 }

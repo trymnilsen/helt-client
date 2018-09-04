@@ -2,7 +2,7 @@ import 'package:spritewidget/spritewidget.dart';
 
 class World {
   static double spacingHeight = 90.0;
-  static double spacingWidth = 95.0;
+  static double spacingWidth = 120.0;
   static const double gridSizeWidth = 95.0;
   static const double gridSizeHeight = 65.0;
   List<List<List<TileData>>> tiles;
